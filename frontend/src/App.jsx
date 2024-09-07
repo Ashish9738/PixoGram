@@ -7,6 +7,7 @@ import Register from "./ui/Register";
 import PostDetails from "./ui/PostDetails";
 import CreatePost from "./ui/CreatePost";
 import EditPost from "./ui/EditPost";
+import Profile from "./ui/Profile";
 
 function App() {
   return (
@@ -16,8 +17,9 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/write" element={<CreatePost />} />
-        <Route exact path="/posts/post/:id" element={<PostDetails />} />
         <Route exact path="/edit/:id" element={<EditPost />} />
+        <Route exact path="/profile/:id" element={<Profile />} />
+        <Route exact path="/posts/post/:id" element={<PostDetails />} />
       </Routes>
     </>
   );
