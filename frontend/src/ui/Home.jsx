@@ -1,15 +1,17 @@
 import React from "react";
 import HomePage from "../components/HomePage";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 function Home() {
   return (
     <>
-      <div className="px-8 md:px[200px]">
-        <HomePage />
-        <HomePage />
-        <HomePage />
-        <HomePage />
-      </div>
+      <Navbar />
+      <HomePage />
+      <HomePage />
+      <HomePage />
+      <HomePage />
+      <Footer />
     </>
   );
 }

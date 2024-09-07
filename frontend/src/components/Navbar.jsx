@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 
 function Navbar() {
-  const user = true;
+  const user = false;
   return (
     <>
-      <div className="flex justify-between items-center px-6 md:px-[200px] py-6">
+      <div className="flex justify-between items-center px-6 md:px-[200px] py-[17px]">
         <h1 className="text-lg md:text-xl font-extrabold">
           <Link to="/">PixoGram</Link>
         </h1>
