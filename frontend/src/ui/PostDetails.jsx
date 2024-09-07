@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
+import Comments from "../components/Comments";
 
 export default function PostDetails() {
   return (
@@ -152,67 +153,28 @@ export default function PostDetails() {
           architecto corrupti provident adipisci!
         </p>
         <div className="flex items-center mt-8 space-x-4 font-semibold">
-          <p>Categories</p>
+          <p>Categories:</p>
           <div className="flex justify-center items-center space-x-2 ">
             <div className="bg-gray-300 rounded-lg px-3 py3">Tech</div>
             <div className="bg-gray-300 rounded-lg px-3 py3">Tech</div>
           </div>
         </div>
-        <div className="flex flex-col">
-          <h3 className="mt-6 mb-4 font-semibold">Comments</h3>
-          {/* Comments Display  */}
-          <div className="px-2 py-2 mb-2 bg-gray-400 rounded-lg">
-            <div className="flex justify-between items-center">
-              <h3 className="font-bold text-gray-500 px-[12px]">
-                @Raju Prasad
-              </h3>
-              <div className="flex justify-center items-center space-x-4">
-                <p className="text-gray-500 text-sm">12/12/1252</p>
-                <p className="text-gray-500 text-sm">09:34</p>
-                <div className="flex justify-center items-center space-x-4">
-                  <p>
-                    <BiEdit />
-                  </p>
-                  <p>
-                    <MdDelete />
-                  </p>
-                </div>
-              </div>
-            </div>
-            <p className="px-4 mt-2">Cool Dude!</p>
-          </div>
-          <div className="px-2 py-2 mb-2 bg-gray-400 rounded-lg">
-            <div className="flex justify-between items-center">
-              <h3 className="font-bold text-gray-500 px-[12px]">
-                @Raju Prasad
-              </h3>
-              <div className="flex justify-center items-center space-x-4">
-                <p className="text-gray-500 text-sm">12/12/1252</p>
-                <p className="text-gray-500 text-sm">09:34</p>
-                <div className="flex justify-center items-center space-x-4">
-                  <p>
-                    <BiEdit />
-                  </p>
-                  <p>
-                    <MdDelete />
-                  </p>
-                </div>
-              </div>
-            </div>
-            <p className="px-4 mt-2">Cool Dude!</p>
-          </div>
-          {/* Add Comment  */}
-          <h1 className="font-bold text-2xl mt-4">Add your comment:</h1>
-          <div className="flex flex-col mt-4 md:flex-row">
-            <input
-              type="text"
-              placeholder="Write a comment"
-              className="md:w-[90%] outline-none px-4 mt-2 md:mt-0 bg-gray-300  "
-            />
-            <button className="bg-black text-md text-white px-4 py-4 md:w-[10%] mt-4 md:mt-0 text-sm">
-              Add Comment
-            </button>
-          </div>
+
+        <h3 className="mt-6 mb-4 font-extrabold">Comments:</h3>
+        <Comments />
+        <Comments />
+
+        {/* Add Comment  */}
+        <h1 className="font-bold text-2xl mt-4">Add your comment:</h1>
+        <div className="flex flex-col mt-4 md:flex-row">
+          <input
+            type="text"
+            placeholder="Write a comment"
+            className="md:w-[90%] outline-none px-4 mt-2 md:mt-0 bg-gray-300  "
+          />
+          <button className="bg-black text-md text-white px-4 py-4 md:w-[10%] mt-4 md:mt-0 text-sm">
+            Add Comment
+          </button>
         </div>
       </div>
       <Footer />
