@@ -6,6 +6,7 @@ import Login from "./ui/Login";
 import Register from "./ui/Register";
 import PostDetails from "./ui/PostDetails";
 import CreatePost from "./ui/CreatePost";
+import EditPost from "./ui/EditPost";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/write" element={<CreatePost />} />
         <Route exact path="/posts/post/:id" element={<PostDetails />} />
+        <Route exact path="/edit/:id" element={<EditPost />} />
       </Routes>
     </>
   );

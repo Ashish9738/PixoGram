@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { ImCross } from "react-icons/im";
-
-export default function CreatePost() {
+export default function EditPost() {
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState([]);
 
@@ -31,7 +30,7 @@ export default function CreatePost() {
     <>
       <Navbar />
       <div className="px-6 md:px-[200px] mt-8">
-        <h1 className="font-bold md:text-2xl sm:text-xl mt-8">Create a post</h1>
+        <h1 className="font-bold md:text-2xl sm:text-xl mt-8">Update a post</h1>
         <form
           action=""
           className="w-full flex flex-col space-y-4  md:space-y-8"
@@ -84,7 +83,7 @@ export default function CreatePost() {
             cols={30}
           ></textarea>
           <button className="bg-black text-md text-white px-4 py-4 md:w-full mt-4 md:mt-0 text-sm">
-            Create
+            Update
           </button>
         </form>
       </div>
