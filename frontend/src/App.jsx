@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./ui/Login";
 import Register from "./ui/Register";
 import PostDetails from "./ui/PostDetails";
+import CreatePost from "./ui/CreatePost";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
+        <Route exact path="/write" element={<CreatePost />} />
         <Route exact path="/posts/post/:id" element={<PostDetails />} />
       </Routes>
     </>
