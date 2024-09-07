@@ -16,8 +16,9 @@ function HomePage() {
             Lorem ipsum dolor sit amet consectetur, adipisicin.
           </h1>
           <div className="flex mb-2 text-sm font-semibold text-gray-500 items-center justify-between md:mb-4 ">
+            <p> @RamHere</p>
             <div className="flex space-x-2">
-              <p>@RamHere</p>
+              <p>12/12/1252</p>
               <p>09:34</p>
             </div>
           </div>

@@ -4,6 +4,7 @@ import Home from "../src/ui/Home";
 import { Route, Routes } from "react-router-dom";
 import Login from "./ui/Login";
 import Register from "./ui/Register";
+import PostDetails from "./ui/PostDetails";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
+        <Route exact path="/posts/post/:id" element={<PostDetails />} />
       </Routes>
     </>
   );
