@@ -1,14 +1,26 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { URL } from "../utils/url";
+import { UserContext } from "../context/UserContext";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
+      const data = { email, password };
+      const resp = await axios.post(URL + "/api/v1/auth/login", data, {
+        withCredentials: true,
+      });
+      // console.log("Login d ata: ", resp.data);
+      setUser(resp.data);
+      setError(false);
+      navigate("/");
     } catch (error) {
       setError(true);
       console.log("Failed to Login", error);
@@ -31,6 +43,7 @@ function Login() {
             placeholder="Enter your password"
             onChange={(event) => setPassword(event.target.value)}
           />
+          {error && <h3 className="text-red-500 tex-sm">Failed to login</h3>}
           <button
             className="w-full px-4 py-4 text-lg font-bold bg-black text-white rounded-lg hover:bg-gray-600"
             onClick={handleLogin}
