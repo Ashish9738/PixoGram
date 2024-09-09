@@ -1,6 +1,6 @@
 import React from "react";
 
-function HomePage() {
+function HomePosts({ posts }) {
   return (
     <>
       <div className="w-full flex mt-8 space-x-4 px-6 md:px-[200px]">
@@ -35,4 +35,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default HomePosts;
