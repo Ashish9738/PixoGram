@@ -11,7 +11,7 @@ function Home() {
   const fetchPosts = async () => {
     try {
       const res = await axios.get(URL + "/api/v1/posts/home");
-      // console.log("Home posts ", res.data);
+      console.log("Home posts ", res.data);
       setPosts(res.data);
     } catch (error) {
       console.log("Failed to fetch posts", error);
@@ -26,7 +26,7 @@ function Home() {
     <>
       <Navbar />
       {posts.map((post) => (
-        <HomePosts posts={post} />
+        <HomePosts key={post._id} post={post} />
       ))}
       <Footer />
     </>
