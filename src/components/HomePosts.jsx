@@ -27,7 +27,7 @@ function HomePosts({ post }) {
               <p>{time}</p>
             </div>
           </div>
-          <p>{post.description.slice(0, 900) + "..."}</p>
+          <p>{post.description.slice(0, 280) + "..."}</p>
         </div>
       </div>
     </>

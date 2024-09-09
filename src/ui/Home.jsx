@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import HomePosts from "../components/HomePosts";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { URL } from "../utils/url";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import Loader from "../components/Loader";
+import { UserContext } from "../context/UserContext";
 
 function Home() {
   const [posts, setPosts] = useState([]);
   const [noResult, setNoResult] = useState(false);
   const [loader, setLoader] = useState(false);
+  const { user } = useContext(UserContext);
   const { search } = useLocation();
 
+  console.log("Home user ", user);
   // const path = useLocation();
   // console.log("path", path);
 
@@ -49,7 +52,14 @@ function Home() {
             </div>
           ) : !noResult ? (
             posts.length > 0 ? (
-              posts.map((post) => <HomePosts key={post._id} post={post} />)
+              posts.map((post) => (
+                <Link
+                  key={post._id}
+                  to={user ? `/posts/post/${post._id}` : "/login"}
+                >
+                  <HomePosts post={post} />
+                </Link>
+              ))
             ) : (
               <p>No posts found</p>
             )
@@ -61,6 +71,7 @@ function Home() {
             </div>
           )}
         </div>
+
         <Footer />
       </div>
     </>
