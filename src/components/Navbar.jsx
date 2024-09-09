@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
+import Menu from "./Menu";
 import { Link } from "react-router-dom";
+import { FaBars } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
 
 function Navbar() {
+  const [menu, setMenu] = useState(false);
+
+  const showMenu = () => {
+    setMenu(!menu);
+  };
+
   const user = false;
   return (
     <>
@@ -20,7 +28,7 @@ function Navbar() {
             <FaSearch />
           </p>
         </div>
-        <div className="flex justify-center items-center space-x-2 md:space-x-4">
+        <div className="hidden md:flex justify-center items-center space-x-2 md:space-x-8">
           {user ? (
             <h3>
               <Link to="/write">Write</Link>
@@ -31,14 +39,23 @@ function Navbar() {
             </h3>
           )}
           {user ? (
-            <h3>
-              <Link to="/profile">Profile</Link>
-            </h3>
+            <div onClick={() => showMenu()} className="md: text-lg  ">
+              <p>
+                <FaBars className="cursor-pointer relative" />
+                {menu && <Menu />}
+              </p>
+            </div>
           ) : (
             <h3>
               <Link to="/register">Register</Link>
             </h3>
           )}
+        </div>
+        <div onClick={() => showMenu()} className="md:hidden text-lg">
+          <p>
+            <FaBars className="cursor-pointer relative" />
+            {menu && <Menu />}
+          </p>
         </div>
       </div>
     </>

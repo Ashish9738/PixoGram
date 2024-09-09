@@ -1,7 +1,19 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    try {
+    } catch (error) {
+      setError(true);
+      console.log("Failed to Login", error);
+    }
+  };
   return (
     <>
       <div className=" h-screen w-full flex justify-center items-center">
@@ -11,13 +23,18 @@ function Login() {
             type="text"
             className="outline-none w-full px-4 py-2 border-black border-2"
             placeholder="Enter your email"
+            onChange={(event) => setEmail(event.target.value)}
           />
           <input
             type="password"
             className="outline-none w-full px-4 py-2 border-black border-2"
             placeholder="Enter your password"
+            onChange={(event) => setPassword(event.target.value)}
           />
-          <button className="w-full px-4 py-4 text-lg font-bold bg-black text-white rounded-lg hover:bg-gray-600">
+          <button
+            className="w-full px-4 py-4 text-lg font-bold bg-black text-white rounded-lg hover:bg-gray-600"
+            onClick={handleLogin}
+          >
             login
           </button>
           <div className="flex justify-center items-center space-x-4">
