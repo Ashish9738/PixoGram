@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import Menu from "./Menu";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FaBars } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
 import { UserContext } from "../context/UserContext";
@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const [menu, setMenu] = useState(false);
+  const path = useLocation().pathname;
+  // console.log(path);
   const [prompt, setPrompt] = useState("");
 
   const { user } = useContext(UserContext);
@@ -25,22 +27,24 @@ function Navbar() {
         <h1 className="text-lg md:text-xl font-extrabold">
           <Link to="/">PixoGram</Link>
         </h1>
-        <div className="flex justify-center items-center space-x-0 mx-3">
-          <input
-            type="text"
-            placeholder="seacrh for post..."
-            className="outline-none px-3 py-1 w-2/3 md:w-full"
-            onChange={(event) => setPrompt(event.target.value)}
-          />
-          <p>
-            <FaSearch
-              className="cursor-pointer"
-              onClick={() =>
-                navigate(prompt ? "?search=" + prompt : navigate("/"))
-              }
+        {path === "/" ? (
+          <div className="flex justify-center items-center space-x-0 mx-3">
+            <input
+              type="text"
+              placeholder="seacrh for post..."
+              className="outline-none px-3 py-1 w-2/3 md:w-full"
+              onChange={(event) => setPrompt(event.target.value)}
             />
-          </p>
-        </div>
+            <p>
+              <FaSearch
+                className="cursor-pointer"
+                onClick={() =>
+                  navigate(prompt ? "?search=" + prompt : navigate("/"))
+                }
+              />
+            </p>
+          </div>
+        ) : null}
         <div className="hidden md:flex justify-center items-center space-x-2 md:space-x-8">
           {user ? (
             <h3>
