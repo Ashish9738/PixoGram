@@ -14,12 +14,18 @@ import { useNavigate } from "react-router-dom";
 
 export default function PostDetails() {
   const postId = useParams().id;
-  // console.log("Post Id", postId);
   const { user } = useContext(UserContext);
-  // console.log("post details user details:", user);
+
   const [PostDetail, setPostDetails] = useState({});
   const [loader, setLoader] = useState(false);
+  const [comments, setComments] = useState([]); //all the fetched comments
+  const [comment, setComment] = useState(""); // to send user comment
+
   const navigate = useNavigate();
+
+  // console.log("post details user details:", user);
+  // console.log("Post Id", postId);
+  console.log("here", user?.data?.username);
 
   const fetchPost = async () => {
     setLoader(true);
@@ -34,6 +40,16 @@ export default function PostDetails() {
     }
   };
 
+  const fetchPostComments = async () => {
+    try {
+      const resp = await axios.get(`${URL}/api/v1/comment/post/${postId}`);
+      console.log("Post comments:", resp);
+      setComments(resp.data.comments);
+    } catch (error) {
+      console.log("Failed to fetch post comment:", error);
+    }
+  };
+
   function formatDateTime(dateString) {
     const date = new Date(dateString);
     const formattedDate = date.toLocaleDateString();
@@ -43,12 +59,8 @@ export default function PostDetails() {
 
   const { date, time } = formatDateTime(PostDetail?.createdAt);
 
-  useEffect(() => {
-    fetchPost();
-  }, [postId]);
-
   // console.log("image path - ", imageFolder + PostDetail.photo);
-  console.log("post details for username:", user?.data.username);
+  console.log("post details for username:", user?.data?.username);
 
   const handleDeletePost = async () => {
     try {
@@ -64,6 +76,31 @@ export default function PostDetails() {
       console.log("Failed to delete post", error);
     }
   };
+
+  const handleAddComment = async (event) => {
+    event.preventDefault();
+    try {
+      const data = {
+        comment: comment,
+        author: user.data.username,
+        postId: postId,
+        userId: user._id,
+      };
+      const res = await axios.post(`${URL}/api/v1/comment/add`, data, {
+        withCredentials: true,
+      });
+      console.log("comment added: ", res);
+      setComment("");
+      fetchPostComments();
+    } catch (error) {
+      console.log("Failed to create comment: ", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPost();
+    fetchPostComments();
+  }, [postId]);
 
   return (
     <>
@@ -100,7 +137,7 @@ export default function PostDetails() {
                   )}
               </div>
               <div className="flex justify-between items-center mt-2 md:mt-4 space-x-4">
-                <p> @{user?.data.username}</p>
+                <p> @{user?.data?.username}</p>
                 <div className="flex space-x-4">
                   <p>{date}</p>
                   <p>{time}</p>
@@ -132,22 +169,39 @@ export default function PostDetails() {
                 )}
               </div>
 
-              <h3 className="mt-6 mb-4 font-extrabold">Comments:</h3>
-              <Comments />
-              <Comments />
-
               {/* Add Comment  */}
               <h1 className="font-bold text-2xl mt-4">Add your comment:</h1>
               <div className="flex flex-col mt-4 md:flex-row">
                 <input
                   type="text"
                   placeholder="Write a comment"
-                  className="md:w-[90%] outline-none px-4 mt-2 md:mt-0 bg-gray-300  "
+                  className="md:w-[80%] outline-none px-4 py-4 mt-2 md:mt-0 bg-gray-300"
+                  value={comment}
+                  onChange={(event) => setComment(event.target.value)}
                 />
-                <button className="bg-black text-md text-white px-4 py-4 md:w-[10%] mt-4 md:mt-0 text-sm">
+                <button
+                  className="bg-black text-md text-white px-4 py-4 md:w-[20%] mt-4 md:mt-0 text-sm"
+                  onClick={handleAddComment}
+                >
                   Add Comment
                 </button>
               </div>
+
+              {/* Display Comments  */}
+              <h3 className="mt-6 mb-4 font-extrabold">Comments:</h3>
+              {comments.length > 0 ? (
+                comments.map((comment) => (
+                  <Comments
+                    key={comment._id}
+                    author={comment.author}
+                    comment={comment.comment}
+                    createdAt={comment.createdAt}
+                    commentId={comment._id}
+                  />
+                ))
+              ) : (
+                <p>Please add your valuable comment.</p>
+              )}
             </div>
           )}
         </div>

@@ -9,7 +9,7 @@ import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 export default function EditPost() {
-  const { id } = useParams();
+  const { id } = useParams(); //id -> postId
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
   // console.log("param", id);
