@@ -37,13 +37,15 @@ export default function CreatePost() {
     setCategories(updatedCategories);
   };
 
+  console.log("user data baaaaaaaaa", user.data.id);
+
   const handleCreatePost = async (event) => {
     event.preventDefault();
     const post = {
       title,
       description,
       username: user.username,
-      userId: user.userId,
+      userId: user.data.id,
       categories,
     };
 
@@ -70,7 +72,7 @@ export default function CreatePost() {
       const createPost = await axios.post(`${URL}/api/v1/post/create`, post, {
         withCredentials: true,
       });
-      // console.log("Here", createPost.data);
+      console.log("Here", createPost.data.userId);
       // console.log("created post w/ data: ", createPost);
       navigate(`/posts/post/` + createPost.data.savePost._id);
     } catch (error) {

@@ -25,7 +25,7 @@ export default function PostDetails() {
 
   // console.log("post details user details:", user);
   // console.log("Post Id", postId);
-  console.log("here", user?.data?.username);
+  // console.log("here", user?.data?.username);
 
   const fetchPost = async () => {
     setLoader(true);
@@ -60,7 +60,7 @@ export default function PostDetails() {
   const { date, time } = formatDateTime(PostDetail?.createdAt);
 
   // console.log("image path - ", imageFolder + PostDetail.photo);
-  console.log("post details for username:", user?.data?.username);
+  // console.log("post details for username:", user?.data?.username);
 
   const handleDeletePost = async () => {
     try {
@@ -97,6 +97,9 @@ export default function PostDetails() {
     }
   };
 
+  console.log("User here: ", user.data);
+  console.log("post det", PostDetail?.userId);
+
   useEffect(() => {
     fetchPost();
     fetchPostComments();
@@ -119,7 +122,7 @@ export default function PostDetails() {
                 </h1>
                 {user &&
                   user?.data &&
-                  user?.data._id === PostDetail?.userId && (
+                  user?.data?.id === PostDetail?.userId && (
                     <div className="flex justify-center items-center space-x-4">
                       <p>
                         <BiEdit
