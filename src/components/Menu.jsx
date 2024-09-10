@@ -10,7 +10,7 @@ function Menu() {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  // console.log("here", user.data.id);
+  // console.log("here blabla", user?._id);
 
   const handleLogout = async () => {
     try {
@@ -40,6 +40,11 @@ function Menu() {
         {user && (
           <h3 className="text-white text-sm hover:text-gray-500 cursor-pointer">
             <Link to={`/profile/${user?.data?.id}`}>Profile</Link>
+          </h3>
+        )}
+        {user && (
+          <h3 className="text-white text-sm hover:text-gray-500 cursor-pointer md:hidden">
+            <Link to={`/write`}>write</Link>
           </h3>
         )}
 

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Menu from "./Menu";
 import { Link, useLocation } from "react-router-dom";
 import { FaBars } from "react-icons/fa6";

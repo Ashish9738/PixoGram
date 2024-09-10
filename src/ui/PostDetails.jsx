@@ -97,8 +97,8 @@ export default function PostDetails() {
     }
   };
 
-  console.log("User here: ", user.data);
-  console.log("post det", PostDetail?.userId);
+  // console.log("User here: ", user.data);
+  // console.log("post det", PostDetail?.userId);
 
   useEffect(() => {
     fetchPost();
@@ -173,7 +173,7 @@ export default function PostDetails() {
               </div>
 
               {/* Add Comment  */}
-              <h1 className="font-bold text-2xl mt-4">Add your comment:</h1>
+              <p className="font-semibold text-xl mt-6">Add your comment:</p>
               <div className="flex flex-col mt-4 md:flex-row">
                 <input
                   type="text"

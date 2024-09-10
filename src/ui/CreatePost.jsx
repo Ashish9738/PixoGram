@@ -37,15 +37,15 @@ export default function CreatePost() {
     setCategories(updatedCategories);
   };
 
-  console.log("user data baaaaaaaaa", user.data.id);
+  // console.log("use r data baaaaaaaaa", user.data.id);
 
   const handleCreatePost = async (event) => {
     event.preventDefault();
     const post = {
       title,
       description,
-      username: user.username,
-      userId: user.data.id,
+      username: user?.username,
+      userId: user?.data?.id,
       categories,
     };
 
