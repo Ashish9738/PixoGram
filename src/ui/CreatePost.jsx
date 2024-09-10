@@ -1,11 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { ImCross } from "react-icons/im";
+import { UserContext } from "../context/UserContext";
+import axios from "axios";
+import { URL } from "../utils/url";
+import { useNavigate } from "react-router-dom";
 
 export default function CreatePost() {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [photo, setPhoto] = useState(false);
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState([]);
+
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const setCategoryValue = (event) => {
     setCategory(event.target.value);
@@ -27,6 +37,47 @@ export default function CreatePost() {
     setCategories(updatedCategories);
   };
 
+  const handleCreatePost = async (event) => {
+    event.preventDefault();
+    const post = {
+      title,
+      description,
+      username: user.username,
+      userId: user.userId,
+      categories,
+    };
+
+    if (photo) {
+      const data = new FormData();
+      const originalFilename = photo.name;
+      data.append("name", originalFilename);
+      data.append("file", photo);
+      post.photo = originalFilename;
+
+      // console.log("photo", photo);
+      try {
+        const uploadPostPhoto = await axios.post(
+          `${URL}/api/v1/post/upload`,
+          data
+        );
+        // console.log("uploadPostPhoto", uploadPostPhoto);
+      } catch (error) {
+        console.log("Faild to upload the post photo", error);
+      }
+    }
+
+    try {
+      const createPost = await axios.post(`${URL}/api/v1/post/create`, post, {
+        withCredentials: true,
+      });
+      // console.log("Here", createPost.data);
+      // console.log("created post w/ data: ", createPost);
+      navigate(`/posts/post/` + createPost.data.savePost._id);
+    } catch (error) {
+      console.log("Faild to create the post ", error);
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -40,10 +91,13 @@ export default function CreatePost() {
             type="text"
             className="outline-none w-full px-4 py-2 mt-5 hover:border-black border-2"
             placeholder="Enter your post title"
+            onChange={(event) => setTitle(event.target.value)}
           />
+
           <input
             type="file"
             className="outline-none w-full px-4 py-2  hover:border-black border-2"
+            onChange={(event) => setPhoto(event.target.files[0])}
           />
           <div className="flex flex-col">
             <div className="flex items-center justify-center space-x-2 md:space-x-8">
@@ -82,8 +136,12 @@ export default function CreatePost() {
             className="px-4 py-2 outline-none hover:border-black border-2"
             rows={15}
             cols={30}
+            onChange={(event) => setDescription(event.target.value)}
           ></textarea>
-          <button className="bg-black text-md text-white px-4 py-4 md:w-full mt-4 md:mt-0 text-sm">
+          <button
+            className="bg-black text-md text-white px-4 py-4 md:w-full mt-4 md:mt-0 text-sm"
+            onClick={() => handleCreatePost(event)}
+          >
             Create
           </button>
         </form>

@@ -1,4 +1,5 @@
 import React from "react";
+import { imageFolder } from "../utils/url";
 
 function HomePosts({ post }) {
   function formatDateTime(dateString) {
@@ -14,7 +15,11 @@ function HomePosts({ post }) {
     <>
       <div className="w-full flex mt-8 space-x-4 px-6 md:px-[200px]">
         <div className="w-[35%] h-[200px] flex justify-center items-center mt-[6px]">
-          <img src={post.photo} alt="" className="h-full w-full object-cover" />
+          <img
+            src={imageFolder + post.photo}
+            alt="post Photo"
+            className="h-full w-full object-cover"
+          />
         </div>
         <div className="w-[65%] flex flex-col">
           <h1 className="text-xl font-bold md:mb-2 mb-1 md:text-2xl">

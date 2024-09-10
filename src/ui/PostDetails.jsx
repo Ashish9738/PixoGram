@@ -9,20 +9,23 @@ import { URL } from "../utils/url";
 import axios from "axios";
 import { UserContext } from "../context/UserContext";
 import Loader from "../components/Loader";
+import { imageFolder } from "../utils/url";
+import { useNavigate } from "react-router-dom";
 
 export default function PostDetails() {
   const postId = useParams().id;
   // console.log("Post Id", postId);
   const { user } = useContext(UserContext);
-  console.log("post details user details:", user);
+  // console.log("post details user details:", user);
   const [PostDetail, setPostDetails] = useState({});
   const [loader, setLoader] = useState(false);
+  const navigate = useNavigate();
 
   const fetchPost = async () => {
     setLoader(true);
     try {
       const resp = await axios.get(`${URL}/api/v1/post/user/${postId}`);
-      console.log("Post data", resp.data.post);
+      // console.log("Post data", resp.data.post);
       setPostDetails(resp.data.post);
       setLoader(false);
     } catch (error) {
@@ -38,11 +41,29 @@ export default function PostDetails() {
     return { date: formattedDate, time: formattedTime };
   }
 
-  const { date, time } = formatDateTime(PostDetail.createdAt);
+  const { date, time } = formatDateTime(PostDetail?.createdAt);
 
   useEffect(() => {
     fetchPost();
   }, [postId]);
+
+  // console.log("image path - ", imageFolder + PostDetail.photo);
+  console.log("post details for username:", user?.data.username);
+
+  const handleDeletePost = async () => {
+    try {
+      const response = await axios.delete(
+        `${URL}/api/v1/post/delete/${postId}`,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log("Delete post resp", response);
+      navigate("/");
+    } catch (error) {
+      console.log("Failed to delete post", error);
+    }
+  };
 
   return (
     <>
@@ -55,39 +76,44 @@ export default function PostDetails() {
             </div>
           ) : (
             <div className="px-8 md:[200px] mt-8">
-              <div className="flex justify-center items-center">
+              <div className="flex justify-between items-center">
                 <h1 className="text-2xl font-bold text-black md:text-3xl">
-                  {PostDetail.title}
+                  {PostDetail?.title}
                 </h1>
-                {user && user.data && user.data._id === PostDetail.userId && (
-                  <div className="flex justify-center items-center space-x-4">
-                    <p>
-                      <BiEdit />
-                    </p>
-                    <p>
-                      <MdDelete />
-                    </p>
-                  </div>
-                )}
+                {user &&
+                  user?.data &&
+                  user?.data._id === PostDetail?.userId && (
+                    <div className="flex justify-center items-center space-x-4">
+                      <p>
+                        <BiEdit />
+                      </p>
+                      <p>
+                        <MdDelete
+                          className="cursor-pointer"
+                          onClick={handleDeletePost}
+                        />
+                      </p>
+                    </div>
+                  )}
               </div>
-              <div className="flex justify-center items-center mt-2 md:mt-4 space-x-4">
-                <p> @{PostDetail.username}</p>
+              <div className="flex justify-between items-center mt-2 md:mt-4 space-x-4">
+                <p> @{user?.data.username}</p>
                 <div className="flex space-x-4">
                   <p>{date}</p>
                   <p>{time}</p>
                 </div>
               </div>
               <img
-                src={PostDetail.photo}
+                src={imageFolder + PostDetail?.photo}
                 alt="Post picture"
                 className=" w-full mx-auto mt-8"
               />
-              <p className="mt-8 mx-auto">{PostDetail.description}</p>
+              <p className="mt-8 mx-auto">{PostDetail?.description}</p>
               <div className="flex items-center mt-8 space-x-4 font-semibold">
                 <p>Categories:</p>
-                {PostDetail.categories && PostDetail.categories.length > 0 ? (
+                {PostDetail?.categories && PostDetail?.categories.length > 0 ? (
                   <div className="flex justify-center items-center space-x-2 ">
-                    {PostDetail.categories.map((category, index) => (
+                    {PostDetail?.categories.map((category, index) => (
                       <div
                         key={index}
                         className="bg-gray-300 rounded-lg px-3 py3"
