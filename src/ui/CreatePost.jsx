@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 export default function CreatePost() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [photo, setPhoto] = useState(false);
+  const [photo, setPhoto] = useState(null);
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState([]);
 

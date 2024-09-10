@@ -85,7 +85,10 @@ export default function PostDetails() {
                   user?.data._id === PostDetail?.userId && (
                     <div className="flex justify-center items-center space-x-4">
                       <p>
-                        <BiEdit />
+                        <BiEdit
+                          className="cursor-pointer"
+                          onClick={() => navigate(`/edit/${postId}`)}
+                        />
                       </p>
                       <p>
                         <MdDelete
