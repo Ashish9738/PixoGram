@@ -33,13 +33,13 @@ function Login() {
           <h1 className="text-xl font-bold text-left">Login</h1>
           <input
             type="text"
-            className="outline-none w-full px-4 py-2 border-black border-2"
+            className="outline-none w-full px-4 py-2 hover:border-black border-2"
             placeholder="Enter your email"
             onChange={(event) => setEmail(event.target.value)}
           />
           <input
             type="password"
-            className="outline-none w-full px-4 py-2 border-black border-2"
+            className="outline-none w-full px-4 py-2 hover:border-black border-2"
             placeholder="Enter your password"
             onChange={(event) => setPassword(event.target.value)}
           />
