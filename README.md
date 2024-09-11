@@ -1,8 +1,7 @@
-# React + Vite
+# Pixogram
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Pixogram - Online publishing where writers share their thoughts, experiences, and many more
 
-Currently, two official plugins are available:
+## Navigate to backend
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[Backend](https://github.com/Ashish9738/PixoGram-500)
