@@ -5,15 +5,14 @@ import { MdDelete } from "react-icons/md";
 import { URL } from "../utils/url";
 import { UserContext } from "../context/UserContext";
 
-const Comments = ({ comment, author, createdAt, commentId }) => {
+const Comments = ({ comment, author, createdAt, userCommentId }) => {
   // const getCommentedUser = async () => {
   //   try {
   //     const res = await axios.get(`${URL}/api/v1/user`);
   //   } catch (error) {
-  //     console.log("Failed to get the commented user:", error);
+  // console.log("Failed to get the commented user:", commentId);  used for testing
   //   }
   // };
-  // console.log("here", post.userId);
 
   // const fetchPostOwner = async () => {
   //   try {
@@ -25,6 +24,7 @@ const Comments = ({ comment, author, createdAt, commentId }) => {
   // };
 
   const { user } = useContext(UserContext);
+  // console.log("user id here in comment ", user);
 
   // useEffect(() => {
   //   fetchPostOwner();
@@ -41,7 +41,8 @@ const Comments = ({ comment, author, createdAt, commentId }) => {
       console.log("Failed to delete comment", error);
     }
   };
-
+  // console.log("tester id", user?.data?.id);
+  // console.log("comment author", userCommentId);
   return (
     <>
       <div className="flex flex-col">
@@ -52,7 +53,7 @@ const Comments = ({ comment, author, createdAt, commentId }) => {
             <div className="flex justify-center items-center space-x-4">
               <p className="text-gray-500 text-sm">{createdAt}</p>
               <p className="text-gray-500 text-sm">{createdAt}</p>
-              {user?._id === comment?.userId ? (
+              {user?.data?.id === userCommentId ? (
                 <div className="flex justify-center items-center space-x-4">
                   {/* <p>
                     <BiEdit />

@@ -15,7 +15,7 @@ function Home() {
   const { user } = useContext(UserContext);
   const { search } = useLocation();
 
-  console.log("Home user ", user);
+  // console.log("Home user ", user);
   // const path = useLocation();
   // console.log("path", path);
 
@@ -23,7 +23,7 @@ function Home() {
     setLoader(true);
     try {
       const res = await axios.get(`${URL}/api/v1/posts/home${search}`);
-      console.log("Home posts ", res.data);
+      // console.log("Home posts ", res.data);
       setPosts(res.data);
       if (res.data.length == 0) {
         setNoResult(true);

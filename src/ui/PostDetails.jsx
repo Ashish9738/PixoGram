@@ -25,7 +25,7 @@ export default function PostDetails() {
 
   // console.log("post details user details:", user);
   // console.log("Post Id", postId);
-  // console.log("here", user?.data?.username);
+  // console.log("here", user?.username);
 
   const fetchPost = async () => {
     setLoader(true);
@@ -44,7 +44,7 @@ export default function PostDetails() {
     try {
       const resp = await axios.get(`${URL}/api/v1/comment/post/${postId}`);
       console.log("Post comments:", resp);
-      setComments(resp.data.comments);
+      setComments(resp?.data?.comments);
     } catch (error) {
       console.log("Failed to fetch post comment:", error);
     }
@@ -61,6 +61,7 @@ export default function PostDetails() {
 
   // console.log("image path - ", imageFolder + PostDetail.photo);
   // console.log("post details for username:", user?.data?.username);
+  // console.log("comments here", comments);
 
   const handleDeletePost = async () => {
     try {
@@ -82,10 +83,11 @@ export default function PostDetails() {
     try {
       const data = {
         comment: comment,
-        author: user.data.username,
+        author: user?.data?.username,
         postId: postId,
-        userId: user._id,
+        userId: user?.data?.id,
       };
+      // console.log("hey there", user?.data?.id);
       const res = await axios.post(`${URL}/api/v1/comment/add`, data, {
         withCredentials: true,
       });
@@ -99,6 +101,7 @@ export default function PostDetails() {
 
   // console.log("User here: ", user.data);
   // console.log("post det", PostDetail?.userId);
+  // console.log("checking for comments", comments);
 
   useEffect(() => {
     fetchPost();
@@ -120,24 +123,22 @@ export default function PostDetails() {
                 <h1 className="text-2xl font-bold text-black md:text-3xl">
                   {PostDetail?.title}
                 </h1>
-                {user &&
-                  user?.data &&
-                  user?.data?.id === PostDetail?.userId && (
-                    <div className="flex justify-center items-center space-x-4">
-                      <p>
-                        <BiEdit
-                          className="cursor-pointer"
-                          onClick={() => navigate(`/edit/${postId}`)}
-                        />
-                      </p>
-                      <p>
-                        <MdDelete
-                          className="cursor-pointer"
-                          onClick={handleDeletePost}
-                        />
-                      </p>
-                    </div>
-                  )}
+                {user && user?.id === PostDetail?.userId && (
+                  <div className="flex justify-center items-center space-x-4">
+                    <p>
+                      <BiEdit
+                        className="cursor-pointer"
+                        onClick={() => navigate(`/edit/${postId}`)}
+                      />
+                    </p>
+                    <p>
+                      <MdDelete
+                        className="cursor-pointer"
+                        onClick={handleDeletePost}
+                      />
+                    </p>
+                  </div>
+                )}
               </div>
               <div className="flex justify-between items-center mt-2 md:mt-4 space-x-4">
                 <p> @{user?.data?.username}</p>
@@ -199,7 +200,7 @@ export default function PostDetails() {
                     author={comment.author}
                     comment={comment.comment}
                     createdAt={comment.createdAt}
-                    commentId={comment._id}
+                    userCommentId={comment.userId}
                   />
                 ))
               ) : (
